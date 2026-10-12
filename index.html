@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>I³PSG 2026 | Conference Submission & Acceptance Portal</title>
+  <style>
+    :root {
+      --primary: #1a365d;
+      --accent: #2b6cb0;
+      --success: #2f855a;
+      --bg: #f8fafc;
+      --border: #e2e8f0;
+      --text: #2d3748;
+    }
+    * { box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+    body { background: var(--bg); margin: 0; padding: 24px 16px; color: var(--text); }
+    .container { max-width: 760px; margin: 0 auto; background: #ffffff; padding: 36px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .header { border-bottom: 2px solid var(--border); padding-bottom: 16px; margin-bottom: 24px; }
+    h1 { color: var(--primary); margin: 0 0 6px 0; font-size: 1.55rem; }
+    .subheading { color: #4a5568; font-size: 0.95rem; font-weight: 500; }
+    .meta-bar { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 10px; font-size: 0.85rem; color: #718096; }
+    
+    .tabs { display: flex; border-bottom: 2px solid var(--border); margin-bottom: 24px; gap: 8px; }
+    .tab-btn { border: none; background: none; padding: 10px 18px; font-weight: 600; cursor: pointer; color: #718096; border-radius: 4px 4px 0 0; }
+    .tab-btn.active { color: var(--primary); border-bottom: 2px solid var(--primary); margin-bottom: -2px; }
+    
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-weight: 600; margin-bottom: 6px; font-size: 0.85rem; }
+    input, select, textarea { width: 100%; padding: 11px; border: 1px solid var(--border); border-radius: 4px; font-size: 0.95rem; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); }
+    
+    button.submit-btn { width: 100%; background: var(--primary); color: #fff; border: none; padding: 13px; border-radius: 4px; font-weight: 600; cursor: pointer; font-size: 0.95rem; }
+    button.submit-btn:hover { background: var(--accent); }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .timer-card { background: #ebf8ff; border: 1px solid #bee3f8; padding: 16px; border-radius: 6px; text-align: center; margin-bottom: 20px; }
+    .timer-title { font-size: 0.85rem; font-weight: 600; color: #2c5282; }
+    .timer-display { font-size: 1.35rem; font-weight: bold; color: var(--accent); margin-top: 4px; }
+    
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+    .badge-accepted { background: #c6f6d5; color: #22543d; }
+    .badge-pending { background: #feebc8; color: #744210; }
+    .badge-rejected { background: #fed7d7; color: #9b2c2c; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <h1>INTERNATIONAL CONFERENCE – I³PSG 26</h1>
+    <div class="subheading">“Interdisciplinary Insights and Practices for Sustainable Growth”</div>
+    <div class="meta-bar">
+      <span>📅 2ⁿᵈ April 2026</span>
+      <span>⏰ 8:30 AM onwards</span>
+      <span>📍 SSJCOE, Dombivli (E)</span>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('submit')">New Abstract Submission</button>
+    <button class="tab-btn" onclick="switchTab('status')">Acceptance & Final Upload</button>
+  </div>
+
+  <!-- TAB 1: NEW ABSTRACT SUBMISSION -->
+  <form id="submissionForm">
+    <div class="form-group">
+      <label>Author Full Name</label>
+      <input type="text" id="fullName" required placeholder="e.g. Dr. Jane Doe / John Smith">
+    </div>
+    <div class="form-group">
+      <label>Email Address (Confirmation & ID will be delivered here)</label>
+      <input type="email" id="email" required placeholder="author@domain.com">
+    </div>
+    <div class="form-group">
+      <label>Phone / WhatsApp Number</label>
+      <input type="tel" id="phone" pattern="[6-9][0-9]{9}" required placeholder="10-digit mobile number">
+    </div>
+    <div class="form-group">
+      <label>Conference Domain / Track</label>
+      <select id="track" required>
+        <option value="">Select Domain</option>
+        <option>AI & Machine Learning</option>
+        <option>IoT & Robotics</option>
+        <option>Cyber Security</option>
+        <option>Sustainable Engineering</option>
+        <option>Interdisciplinary Practices</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Title of the Abstract</label>
+      <input type="text" id="title" required placeholder="Enter abstract title">
+    </div>
+    <div class="form-group">
+      <label>Abstract Summary (Max 250 words)</label>
+      <textarea id="summary" rows="4" required placeholder="Provide brief summary, methodology, and key results..."></textarea>
+    </div>
+    <button type="submit" class="submit-btn" id="subBtn">Submit Abstract</button>
+  </form>
+
+  <!-- TAB 2: SELECTION VERIFICATION & FINAL UPLOAD -->
+  <div id="statusSection" class="hidden">
+    <div class="timer-card">
+      <div class="timer-title">Final Camera-Ready Upload Window Closes In:</div>
+      <div class="timer-display" id="countdown">Calculating...</div>
+    </div>
+
+    <div class="form-group">
+      <label>Enter Abstract ID</label>
+      <input type="text" id="checkId" placeholder="e.g. I3PSG-20261012-174900">
+    </div>
+    <button type="button" class="submit-btn" style="background:#4a5568;" onclick="verifyAbstract()">Verify Acceptance Status</button>
+
+    <div id="resultBox" class="hidden" style="margin-top:20px; border-top:1px solid #e2e8f0; padding-top:16px;">
+      <p><b>Status:</b> <span id="statusTag"></span></p>
+      <p><b>Title:</b> <span id="resTitle"></span></p>
+
+      <div id="uploadContainer" class="hidden">
+        <hr style="border:none; border-top:1px dashed #cbd5e0; margin:16px 0;">
+        <label>Upload Camera-Ready Abstract (PDF / DOCX up to 10MB)</label>
+        <input type="file" id="finalFile" accept=".pdf,.docx,.doc">
+        <button type="button" class="submit-btn" id="uploadBtn" style="margin-top:12px; background:var(--success);" onclick="uploadFinalDocument()">Upload Final Abstract</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Active Deployment URL
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwL-aa_kYB8dJGM9Y1DnaN2BWcUoCHp05v0qSZepRnePvNeJ1IkEOU2_wacD354ErQy8w/exec";
+
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    if (tab === 'submit') {
+      document.querySelectorAll('.tab-btn')[0].classList.add('active');
+      document.getElementById('submissionForm').classList.remove('hidden');
+      document.getElementById('statusSection').classList.add('hidden');
+    } else {
+      document.querySelectorAll('.tab-btn')[1].classList.add('active');
+      document.getElementById('submissionForm').classList.add('hidden');
+      document.getElementById('statusSection').classList.remove('hidden');
+    }
+  }
+
+  // Countdown timer targeting 2nd April 2026, 08:30 AM IST
+  const targetDate = new Date("2026-04-02T08:30:00+05:30").getTime();
+  setInterval(() => {
+    const diff = targetDate - new Date().getTime();
+    if (diff <= 0) {
+      document.getElementById("countdown").innerText = "Submissions Closed";
+      return;
+    }
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs = Math.floor((diff % (1000 * 60)) / 1000);
+    document.getElementById("countdown").innerText = `${days}d ${hours}h ${mins}m ${secs}s`;
+  }, 1000);
+
+  // Stage 1: Register and generate Abstract ID
+  document.getElementById('submissionForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('subBtn');
+    btn.disabled = true;
+    btn.innerText = "Submitting...";
+
+    const payload = {
+      action: "register",
+      fullName: document.getElementById('fullName').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      phone: document.getElementById('phone').value.trim(),
+      track: document.getElementById('track').value,
+      title: document.getElementById('title').value.trim(),
+      summary: document.getElementById('summary').value.trim()
+    };
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if (data.status === "success") {
+        alert(`Abstract Submitted Successfully!\n\nYour Abstract ID: ${data.abstractId}\n\nA confirmation email has been sent to ${payload.email}.`);
+        document.getElementById('submissionForm').reset();
+      } else {
+        alert("Submission error: " + (data.message || "Please try again."));
+      }
+    } catch (err) {
+      alert("Network error. Please try again.");
+    } finally {
+      btn.disabled = false;
+      btn.innerText = "Submit Abstract";
+    }
+  });
+
+  // Stage 2: Check backend selection status
+  let verifiedId = null;
+  async function verifyAbstract() {
+    const id = document.getElementById('checkId').value.trim();
+    if (!id) return alert("Please enter your Abstract ID.");
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "verify_id", abstractId: id })
+      });
+      const result = await res.json();
+
+      const box = document.getElementById('resultBox');
+      const tag = document.getElementById('statusTag');
+      const title = document.getElementById('resTitle');
+      const uploadDiv = document.getElementById('uploadContainer');
+      box.classList.remove('hidden');
+
+      if (result.status === "not_found") {
+        tag.innerHTML = `<span class="badge badge-rejected">Abstract ID Not Found</span>`;
+        title.innerText = "-";
+        uploadDiv.classList.add('hidden');
+        return;
+      }
+
+      title.innerText = result.data.title;
+      if (result.isAccepted) {
+        tag.innerHTML = `<span class="badge badge-accepted">Accepted</span>`;
+        uploadDiv.classList.remove('hidden');
+        verifiedId = id;
+      } else {
+        tag.innerHTML = `<span class="badge badge-pending">Under Review / Not Accepted</span>`;
+        uploadDiv.classList.add('hidden');
+      }
+    } catch (err) {
+      alert("Error checking ID. Verify network connection.");
+    }
+  }
+
+  // Stage 3: Base64 File Upload for Accepted Submissions
+  async function uploadFinalDocument() {
+    const fileInput = document.getElementById('finalFile');
+    if (!fileInput.files.length) return alert("Please choose a file to upload.");
+
+    const file = fileInput.files[0];
+    if (file.size > 10 * 1024 * 1024) return alert("File exceeds the 10 MB limit.");
+
+    const btn = document.getElementById('uploadBtn');
+    btn.disabled = true;
+    btn.innerText = "Uploading to Drive...";
+
+    const reader = new FileReader();
+    reader.onload = async function() {
+      const base64Data = reader.result.split(',')[1];
+      const payload = {
+        action: "upload_final",
+        abstractId: verifiedId,
+        fileBase64: base64Data,
+        fileMimeType: file.type,
+        fileExtension: file.name.split('.').pop()
+      };
+
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: "POST",
+          body: JSON.stringify(payload)
+        });
+        const resp = await res.json();
+        if (resp.status === "success") {
+          alert("Final abstract uploaded successfully to the conference drive!");
+          fileInput.value = "";
+        } else {
+          alert("Upload failed: " + (resp.message || "Unauthorized"));
+        }
+      } catch (err) {
+        alert("Upload error. Please try again.");
+      } finally {
+        btn.disabled = false;
+        btn.innerText = "Upload Final Abstract";
+      }
+    };
+    reader.readAsDataURL(file);
+  }
+</script>
+</body>
+</html>
